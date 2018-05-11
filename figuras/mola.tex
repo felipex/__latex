@@ -1,0 +1,35 @@
+\documentclass{minimal}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing,patterns}
+\usetikzlibrary{calc,patterns,decorations.markings}
+\usetikzlibrary{positioning}
+
+%\newcommand{cmd}{def}
+
+\newcommand{\mola}[4]{% Cria uma mola com uma extremidade fixa
+\tikzstyle{spring}=[thick,decorate,decoration={aspect=0.5, segment length=#1, amplitude=2mm,coil}]
+\tikzstyle{platform}=[fill,pattern=north east lines,draw=none,minimum width=2cm,minimum height=0.3cm]
+%
+\coordinate (g) at (0,0);
+\coordinate (topspring) at (0,-1cm);
+\coordinate (bottomspring) at (0,{#2}); %%changing the values here will compress or expand the spring
+\coordinate (pt2) at ($(bottomspring) + (0,-.5cm)$); %% this is relative.
+\coordinate (pt3) at ($(pt2) + (0,#3)$); %% this is relative.
+%
+\draw [thick](topspring)--(g);
+\draw [spring] (bottomspring) -- (topspring);
+\draw [thick] (bottomspring) -- (pt2.north);
+
+\node [platform,anchor=south] at (g)  {}; % Desenho da plataforma
+\draw[very thick] (-1,0) -- (1,0);
+
+}
+\begin{document}
+%
+\begin{tikzpicture}[yshift=0cm,every node/.style={draw,outer sep=0pt,thick}]
+\begin{scope}[xshift=-2.5cm]
+\mola{1mm}{-3cm}{-0.1cm}{0}
+\end{scope}
+\end{tikzpicture}
+%
+\end{document}
